@@ -20,7 +20,7 @@ make -sj $con
 make -sj $con install
 
 echo /opt/openssl/lib64 >> /etc/ld.so.conf && ldconfig
-echo 'export PATH=/opt/openssl/bin:$PATH' >> ~/.bash_profile
+echo 'export PATH=/opt/openssl/bin:$PATH' >> /etc/profile.d/openssl3.sh
 
 cd /
 rm -rf /openssl-3.0.0.tar.gz /openssl-openssl-3.0.0
