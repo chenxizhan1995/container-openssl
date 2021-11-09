@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -xe
-sed -e 's|^mirrorlist=|#mirrorlist=|g' \
-         -Ee 's,^#\s*baseurl=http://mirror.centos.org,baseurl=https://mirrors.tuna.tsinghua.edu.cn,g' \
-         -i.bak \
-         /etc/yum.repos.d/CentOS-*.repo
+
+if [ "$switch_mirror" == "yes" ]; then
+	echo 切换清华源
+	sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+			-Ee 's,^#\s*baseurl=http://mirror.centos.org,baseurl=https://mirrors.tuna.tsinghua.edu.cn,g' \
+			-i.bak \
+			/etc/yum.repos.d/CentOS-*.repo
+fi
 yum makecache
 yum install -y gcc make perl glibc-langpack-en.x86_64 bash-completion
 

@@ -15,11 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build
-        run: buildah bud -t docker.io/chenxizhan1995/openssl:latest
+        run: buildah bud --build-arg switch_mirror=no -t docker.io/chenxizhan1995/openssl:latest .
       - name: push last
         run: buildah push --creds=chenxizhan1995:$token docker.io/chenxizhan1995/openssl:latest
       - name: push version
         run: |
-          ver=${GITHUB_REF#refs/tags/v}
-          podman tag docker.io/chenxizhan1995/openssl:latest docker.io/chenxizhan1995/openssl:$ver
-          buildah push --creds=chenxizhan1995:$token docker.io/chenxizhan1995/openssl:$ver
+          podman tag docker.io/chenxizhan1995/openssl:latest docker.io/chenxizhan1995/openssl:3.0.0
+          buildah push --creds=chenxizhan1995:$token docker.io/chenxizhan1995/openssl:3.0.0
